@@ -6,17 +6,239 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/text_home"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:id = "@+id/cardview_personal_details"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="20dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="30dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_welcome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="10dp"
+                    android:text="Welcome Teacher!" />
+
+                <TextView
+                    android:id="@+id/textView_teacher_display_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="[Teacher Display Name]" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview_menu"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:padding="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp">
+
+            <TableLayout
+                android:padding="8dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+
+                        android:layout_width="100dp"
+                        android:layout_height="85dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView_classmenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:src="@drawable/classmenu1" />
+
+                        <TextView
+                            android:id="@+id/textView_class_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Class"
+                            android:textStyle="bold"
+                            android:textSize="12dp"
+                            android:textAlignment="center" />
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+
+                        android:layout_width="100dp"
+                        android:layout_height="85dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView_students_menu"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:src="@drawable/studentsmenu1" />
+
+                        <TextView
+                            android:id="@+id/textView_students_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Students"
+                            android:textStyle="bold"
+                            android:textSize="12dp"
+                            android:textAlignment="center" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+
+                        android:layout_width="100dp"
+                        android:layout_height="85dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView_lesson_plan_menu"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:src="@drawable/lessonplanmenu1" />
+
+                        <TextView
+                            android:id="@+id/textView_lesson_plan_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Lesson Plan"
+                            android:textStyle="bold"
+                            android:textSize="12dp"
+                            android:textAlignment="center" />
+
+                    </LinearLayout>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_height="127dp">
+
+                    <LinearLayout
+
+                        android:layout_width="100dp"
+                        android:layout_height="85dp"
+
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView_section_menu"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:src="@drawable/sectionmenu1" />
+
+                        <TextView
+                            android:id="@+id/textView_section_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Sections"
+                            android:textStyle="bold"
+                            android:textSize="12dp"
+                            android:textAlignment="center" />
+
+                    </LinearLayout>
+
+
+
+
+
+
+                    <LinearLayout
+
+                        android:layout_width="100dp"
+                        android:layout_height="85dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView_recent_activities_menu"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:src="@drawable/logsmenu1" />
+
+                        <TextView
+                            android:id="@+id/textView_recent_activities_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Activity Log"
+                            android:textStyle="bold"
+                            android:textSize="12dp"
+                            android:textAlignment="center" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+
+                        android:layout_width="100dp"
+                        android:layout_height="85dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView_schoolyear_menu"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:src="@drawable/schoolyearmenu1" />
+
+                        <TextView
+                            android:id="@+id/textView_schoolyear_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="SY Archives"
+                            android:textStyle="bold"
+                            android:textSize="12dp"
+                            android:textAlignment="center" />
+
+                    </LinearLayout>
+
+                </TableRow>
+
+            </TableLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"/>
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
