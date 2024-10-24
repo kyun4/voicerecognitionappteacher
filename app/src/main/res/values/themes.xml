@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.VoiceRecognitionAppTeacherAdmin" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/my_light_primary</item>
+    </style>
+
+    <style name="Theme.VoiceRecognitionAppTeacherAdmin" parent="Base.Theme.VoiceRecognitionAppTeacherAdmin" />
+
+    <style name="Theme.VoiceRecognitionAppTeacherAdmin.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.VoiceRecognitionAppTeacherAdmin.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.VoiceRecognitionAppTeacherAdmin.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>

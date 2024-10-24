@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "1009844235682",
+    "firebase_url": "https://voicerecognitionapp-ff037-default-rtdb.firebaseio.com",
+    "project_id": "voicerecognitionapp-ff037",
+    "storage_bucket": "voicerecognitionapp-ff037.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009844235682:android:9da2c762c4fb4f2f9cd6fb",
+        "android_client_info": {
+          "package_name": "com.example.voicerecognitionapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009844235682-sgqmivbntn1s7r7793s80i1psilgkrs4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.voicerecognitionapp",
+            "certificate_hash": "2d928d6c23727d39e5ad1d73d11eed2b3de252d8"
+          }
+        },
+        {
+          "client_id": "1009844235682-96225bapbk5m9ra14vld2judqavlbins.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbTKB2Ii3sxD3Z_g26ZWPjlBniN3JLxyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009844235682-96225bapbk5m9ra14vld2judqavlbins.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009844235682:android:28e93bae7069031f9cd6fb",
+        "android_client_info": {
+          "package_name": "com.example.voicerecognitionappteacheradmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009844235682-dc3hc48biiisa7lg2q3csvon99m1rv3e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.voicerecognitionappteacheradmin",
+            "certificate_hash": "2d928d6c23727d39e5ad1d73d11eed2b3de252d8"
+          }
+        },
+        {
+          "client_id": "1009844235682-96225bapbk5m9ra14vld2judqavlbins.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbTKB2Ii3sxD3Z_g26ZWPjlBniN3JLxyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009844235682-96225bapbk5m9ra14vld2judqavlbins.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
