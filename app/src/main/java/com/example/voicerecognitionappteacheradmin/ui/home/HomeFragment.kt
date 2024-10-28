@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.voicerecognitionappteacheradmin.ClassMenu
 import com.example.voicerecognitionappteacheradmin.DataClass.UsersClass
+import com.example.voicerecognitionappteacheradmin.SectionsList
 import com.example.voicerecognitionappteacheradmin.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -47,6 +48,7 @@ class HomeFragment : Fragment() {
 
         val textview_teacher_display_name = binding.textViewTeacherDisplayName
         val linearlayout_class_menu = binding.linearlayoutClassmenu
+        val linearlayout_section_menu = binding.linearlayoutSectionMenu
 
 
         if(auth.currentUser?.uid != null){
@@ -56,6 +58,11 @@ class HomeFragment : Fragment() {
 
         linearlayout_class_menu.setOnClickListener {
             val intent = Intent(context, ClassMenu::class.java);
+            startActivity(intent)
+        }
+
+        linearlayout_section_menu.setOnClickListener {
+            val intent = Intent(context, SectionsList::class.java)
             startActivity(intent)
         }
 

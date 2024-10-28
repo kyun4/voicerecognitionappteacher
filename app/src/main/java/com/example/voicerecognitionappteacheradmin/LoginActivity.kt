@@ -105,6 +105,7 @@ class LoginActivity : AppCompatActivity() {
         text_signup.setOnClickListener {
             val intent = Intent(this, SignUp::class.java);
             startActivity(intent);
+            finish()
         }
 
     }

@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.voicerecognitionappteacheradmin.CustomAdapters.ClassesCustomAdapter
 import com.example.voicerecognitionappteacheradmin.DataClass.Classes
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -21,6 +22,7 @@ import com.google.firebase.database.ValueEventListener
 
 class ClassMenu : AppCompatActivity() {
 
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,8 @@ class ClassMenu : AppCompatActivity() {
             insets
         }
 
+        auth = FirebaseAuth.getInstance()
+
         var listClassItem = mutableListOf<Classes>()
         var listview: ListView = findViewById<ListView>(R.id.listview_classes)
 
@@ -40,30 +44,9 @@ class ClassMenu : AppCompatActivity() {
         val button_add_class: Button = findViewById<Button>(R.id.buttonAddClass)
 
 
-
-        val database_ref: DatabaseReference
-        database_ref = FirebaseDatabase.getInstance().getReference("/classes/")
-        database_ref.addValueEventListener(object:ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-                var objects = snapshot.children.mapNotNull { child ->
-                    child.getValue(Classes::class.java)
-                }
-
-                for(object_item in objects){
-                    listClassItem.add(object_item)
-                }
-
-                val adapter = ClassesCustomAdapter(baseContext, R.layout.class_item_details, listClassItem)
-
-                listview.adapter = adapter
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(baseContext,"Loading Class List Failed ${error}", Toast.LENGTH_LONG).show()
-            }
-        })
+        if(auth.currentUser?.uid != null){
+            populateClasses(listview, listClassItem, auth.currentUser?.uid.toString())
+        }
 
 
 
@@ -78,8 +61,35 @@ class ClassMenu : AppCompatActivity() {
         }
     }
 
-    fun populateClasses(){
+    fun populateClasses(listview: ListView, listClassItem: MutableList<Classes>, firebase_uid: String){
 
+        val database_ref: DatabaseReference
+        database_ref = FirebaseDatabase.getInstance().getReference("/classes/")
+        database_ref.addValueEventListener(object:ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                var objects = snapshot.children.mapNotNull { child ->
+                    child.getValue(Classes::class.java)
+                }
+
+                for(object_item in objects){
+
+                    if(object_item.teacher_id.equals(firebase_uid)){
+                        listClassItem.add(object_item)
+                    }
+
+                }
+
+                val adapter = ClassesCustomAdapter(baseContext, R.layout.class_item_details, listClassItem)
+
+                listview.adapter = adapter
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(baseContext,"Loading Class List Failed ${error}", Toast.LENGTH_LONG).show()
+            }
+        })
 
 
     }

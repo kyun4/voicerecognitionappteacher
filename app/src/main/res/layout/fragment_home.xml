@@ -151,6 +151,7 @@
 
                     <LinearLayout
 
+                        android:id = "@+id/linearlayoutSectionMenu"
                         android:layout_width="100dp"
                         android:layout_height="85dp"
 

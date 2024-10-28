@@ -62,13 +62,13 @@
             android:layout_height="557dp" />
 
         <Button
-            android:id="@+id/buttonAddClass"
+            android:id="@+id/buttonAddSection"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_margin="20dp"
             android:backgroundTint="@color/base_color"
             android:padding="15dp"
-            android:text="Add New Class"
+            android:text="Add New Section"
             android:textAllCaps="false"
             android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout2"

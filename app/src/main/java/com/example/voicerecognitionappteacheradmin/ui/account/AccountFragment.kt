@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.voicerecognitionappteacheradmin.DataClass.UsersClass
 import com.example.voicerecognitionappteacheradmin.LoginActivity
+import com.example.voicerecognitionappteacheradmin.MainMenu
 import com.example.voicerecognitionappteacheradmin.databinding.FragmentAccountBinding
 import com.example.voicerecognitionappteacheradmin.databinding.FragmentGalleryBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -59,6 +60,7 @@ class AccountFragment : Fragment() {
             auth.signOut()
             val intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
+            activity?.finish()
         }
 
         if(auth.currentUser != null){
