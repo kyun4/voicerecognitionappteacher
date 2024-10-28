@@ -72,6 +72,7 @@
 
                     <LinearLayout
 
+                        android:id = "@+id/linearlayout_classmenu"
                         android:layout_width="100dp"
                         android:layout_height="85dp"
                         android:orientation="vertical">

@@ -1,5 +1,6 @@
 package com.example.voicerecognitionappteacheradmin.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.voicerecognitionappteacheradmin.ClassMenu
 import com.example.voicerecognitionappteacheradmin.DataClass.UsersClass
 import com.example.voicerecognitionappteacheradmin.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -44,6 +46,7 @@ class HomeFragment : Fragment() {
 //        }
 
         val textview_teacher_display_name = binding.textViewTeacherDisplayName
+        val linearlayout_class_menu = binding.linearlayoutClassmenu
 
 
         if(auth.currentUser?.uid != null){
@@ -51,6 +54,10 @@ class HomeFragment : Fragment() {
             displayTeacherName(textview_teacher_display_name,firebase_uid)
         }
 
+        linearlayout_class_menu.setOnClickListener {
+            val intent = Intent(context, ClassMenu::class.java);
+            startActivity(intent)
+        }
 
         return root
     }

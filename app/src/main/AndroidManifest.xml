@@ -13,6 +13,30 @@
         android:theme="@style/Theme.VoiceRecognitionAppTeacherAdmin"
         tools:targetApi="31">
         <activity
+            android:name=".ClassActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SYArchives"
+            android:exported="false" />
+        <activity
+            android:name=".LessonPlan"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityLogs"
+            android:exported="false" />
+        <activity
+            android:name=".ClassMenu"
+            android:exported="false" />
+        <activity
+            android:name=".SectionsList"
+            android:exported="false" />
+        <activity
+            android:name=".StudentsList"
+            android:exported="false" />
+        <activity
+            android:name=".AddClassForm"
+            android:exported="false" />
+        <activity
             android:name=".SignUpComplete"
             android:exported="false" />
         <activity
