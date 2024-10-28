@@ -2,6 +2,8 @@ package com.example.voicerecognitionappteacheradmin
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -13,9 +15,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.voicerecognitionappteacheradmin.DataClass.Classes
+import com.example.voicerecognitionappteacheradmin.DataClass.SectionClass
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class AddClassForm : AppCompatActivity() {
 
@@ -36,7 +42,8 @@ class AddClassForm : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         val yearlevel_list = listOf(" [Select Year Level] ","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6")
-        val section_list = listOf(" [Select Section] ","Mahongany","Narra","Sampaloc","ipil-Ipil")
+        val section_list = mutableListOf<SectionClass>()
+
 
 
 
@@ -58,13 +65,34 @@ class AddClassForm : AppCompatActivity() {
 
 
         val yearlevel_adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, yearlevel_list)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, section_list)
+
 
         yearlevel_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
 
         spinner_yearlevel.adapter = yearlevel_adapter
-        spinner_sections.adapter = adapter
+
+
+
+
+           // getSectionList(spinner_sections, section_list, firebase_uid, spinner_yearlevel.selectedItemId.toString())
+
+
+        spinner_yearlevel.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                getSectionList(spinner_sections,section_list,(position-1).toString(), firebase_uid)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+
+            }
+        }
 
 
         button_save.setOnClickListener {
@@ -81,7 +109,7 @@ class AddClassForm : AppCompatActivity() {
 
             if(error_messages.trim().equals("")){
 
-                addClass(className, "section_id_1", "sy",firebase_uid)
+                addClass(className, section_list.get(spinner_sections.selectedItemPosition).section_id, "sy",firebase_uid)
                 et_class_name.text.clear()
                 val intent = Intent(baseContext, MainMenu::class.java)
                 startActivity(intent)
@@ -93,6 +121,45 @@ class AddClassForm : AppCompatActivity() {
         }
     }
 
+    fun getSectionList(spinner_sections: Spinner, section_list: MutableList<SectionClass>, yearlevel_id: String, firebase_uid: String){
+
+        section_list.clear()
+
+        val dbref: DatabaseReference
+        dbref = FirebaseDatabase.getInstance().getReference("/section/")
+
+        var section_list_name = mutableListOf<String>()
+
+        dbref.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var object_record = snapshot.children.mapNotNull { child ->
+                    child.getValue(SectionClass::class.java)
+                }
+
+                for(object_item in object_record){
+                    if(object_item.teacher_id.equals(firebase_uid) && object_item.yearlevel_id.equals(yearlevel_id)){
+                        section_list.add(object_item)
+                        section_list_name.add(object_item.section_name)
+                    }
+                }
+
+                val adapter = ArrayAdapter(/* context = */ baseContext, /* resource = */
+                    android.R.layout.simple_spinner_item, /* objects = */
+                    section_list_name)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinner_sections.adapter = adapter
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+
+
+
+    }
+
     fun addClass(class_name: String, section_id: String, sy: String, teacher_id: String){
         val database : DatabaseReference
         database = FirebaseDatabase.getInstance().getReference("classes")
@@ -100,7 +167,7 @@ class AddClassForm : AppCompatActivity() {
         var class_id: String = ""
         class_id = database.push().key.toString()
 
-        database.child(class_id).setValue(Classes(class_id,class_name,section_id,teacher_id,"",sy)).addOnSuccessListener {
+        database.child(class_id).setValue(Classes(class_id,class_name,section_id,teacher_id,sy)).addOnSuccessListener {
             Toast.makeText(baseContext,"One Class Added "+class_name, Toast.LENGTH_LONG).show();
         }.addOnFailureListener {
             Toast.makeText(baseContext,"Failed Adding Class ${it.toString()}", Toast.LENGTH_LONG).show();

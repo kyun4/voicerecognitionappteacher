@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.voicerecognitionappteacheradmin.CustomAdapters.ClassesCustomAdapter
 import com.example.voicerecognitionappteacheradmin.DataClass.Classes
+import com.example.voicerecognitionappteacheradmin.DataClass.SectionClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -37,6 +38,8 @@ class ClassMenu : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         var listClassItem = mutableListOf<Classes>()
+        var listSectionItem = mutableListOf<SectionClass>()
+
         var listview: ListView = findViewById<ListView>(R.id.listview_classes)
 
         val imageback: ImageView = findViewById<ImageView>(R.id.imageView_back_home)
@@ -45,7 +48,7 @@ class ClassMenu : AppCompatActivity() {
 
 
         if(auth.currentUser?.uid != null){
-            populateClasses(listview, listClassItem, auth.currentUser?.uid.toString())
+            populateClasses(listview, listClassItem, listSectionItem , auth.currentUser?.uid.toString())
         }
 
 
@@ -61,7 +64,28 @@ class ClassMenu : AppCompatActivity() {
         }
     }
 
-    fun populateClasses(listview: ListView, listClassItem: MutableList<Classes>, firebase_uid: String){
+
+    fun populateClasses(listview: ListView, listClassItem: MutableList<Classes>, listSectionItem: MutableList<SectionClass>,  firebase_uid: String){
+
+        val databaseClassRef: DatabaseReference
+        databaseClassRef = FirebaseDatabase.getInstance().getReference("/section/")
+        databaseClassRef.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                var objects = snapshot.children.mapNotNull { child ->
+                    child.getValue(SectionClass::class.java)
+                }
+
+                for(item_records in objects){
+                    listSectionItem.add(item_records)
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
 
         val database_ref: DatabaseReference
         database_ref = FirebaseDatabase.getInstance().getReference("/classes/")
@@ -80,7 +104,7 @@ class ClassMenu : AppCompatActivity() {
 
                 }
 
-                val adapter = ClassesCustomAdapter(baseContext, R.layout.class_item_details, listClassItem)
+                val adapter = ClassesCustomAdapter(baseContext, R.layout.class_item_details, listClassItem,listSectionItem)
 
                 listview.adapter = adapter
 

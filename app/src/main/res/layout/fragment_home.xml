@@ -72,6 +72,31 @@
 
                     <LinearLayout
 
+                        android:id = "@+id/linearlayoutSectionMenu"
+                        android:layout_width="100dp"
+                        android:layout_height="85dp"
+
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView_section_menu"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:src="@drawable/sectionmenu1" />
+
+                        <TextView
+                            android:id="@+id/textView_section_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Sections"
+                            android:textStyle="bold"
+                            android:textSize="12dp"
+                            android:textAlignment="center" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+
                         android:id = "@+id/linearlayout_classmenu"
                         android:layout_width="100dp"
                         android:layout_height="85dp"
@@ -119,6 +144,17 @@
 
                     </LinearLayout>
 
+
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_height="127dp">
+
+
+
                     <LinearLayout
 
                         android:layout_width="100dp"
@@ -141,40 +177,6 @@
                             android:textAlignment="center" />
 
                     </LinearLayout>
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:gravity="center_horizontal"
-                    android:layout_height="127dp">
-
-                    <LinearLayout
-
-                        android:id = "@+id/linearlayoutSectionMenu"
-                        android:layout_width="100dp"
-                        android:layout_height="85dp"
-
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imageView_section_menu"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:src="@drawable/sectionmenu1" />
-
-                        <TextView
-                            android:id="@+id/textView_section_label"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Sections"
-                            android:textStyle="bold"
-                            android:textSize="12dp"
-                            android:textAlignment="center" />
-
-                    </LinearLayout>
-
-
 
 
 

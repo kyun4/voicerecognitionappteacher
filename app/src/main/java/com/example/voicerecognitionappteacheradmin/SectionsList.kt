@@ -64,9 +64,9 @@ class SectionsList : AppCompatActivity() {
 
     fun populateSections(listview: ListView, listItemSection: MutableList<SectionClass>, firebase_uid: String){
 
-    val database_ref: DatabaseReference
+        val database_ref: DatabaseReference
 
-    database_ref = FirebaseDatabase.getInstance().getReference("/section/")
+        database_ref = FirebaseDatabase.getInstance().getReference("/section/")
 
         database_ref.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

@@ -5,19 +5,10 @@ public class Classes {
     String class_name;
     String section_id;
     String teacher_id;
-    String yearlevel_id;
+
     String sy;
 
     public Classes() {
-    }
-
-    public Classes(String class_id, String class_name, String section_id, String teacher_id, String yearlevel_id, String sy) {
-        this.class_id = class_id;
-        this.class_name = class_name;
-        this.section_id = section_id;
-        this.teacher_id = teacher_id;
-        this.yearlevel_id = yearlevel_id;
-        this.sy = sy;
     }
 
     public String getClass_id() {
@@ -52,19 +43,19 @@ public class Classes {
         this.teacher_id = teacher_id;
     }
 
-    public String getYearlevel_id() {
-        return yearlevel_id;
-    }
-
-    public void setYearlevel_id(String yearlevel_id) {
-        this.yearlevel_id = yearlevel_id;
-    }
-
     public String getSy() {
         return sy;
     }
 
     public void setSy(String sy) {
+        this.sy = sy;
+    }
+
+    public Classes(String class_id, String class_name, String section_id, String teacher_id, String sy) {
+        this.class_id = class_id;
+        this.class_name = class_name;
+        this.section_id = section_id;
+        this.teacher_id = teacher_id;
         this.sy = sy;
     }
 }

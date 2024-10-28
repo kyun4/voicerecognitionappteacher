@@ -68,7 +68,7 @@ class AddSection : AppCompatActivity() {
             if(error_message.trim().equals("")){
 
                 if(auth.currentUser?.uid != null){
-                    addSection(section_name,yearlevel_id, auth.currentUser?.uid.toString(),"")
+                    addSection(section_name,Integer.parseInt(yearlevel_id)-1, auth.currentUser?.uid.toString(),"")
                     et_section_name.text.clear()
                     spinner_yearlevel.setSelection(0)
 
@@ -90,14 +90,15 @@ class AddSection : AppCompatActivity() {
         }
     }
 
-    fun addSection(section_name: String, yearlevel_id: String, teacher_id: String, sy: String){
+    fun addSection(section_name: String, yearlevel_id: Int, teacher_id: String, sy: String){
 
         val databaseRef: DatabaseReference
         databaseRef = FirebaseDatabase.getInstance().getReference("/section/")
 
         var section_id = databaseRef.push().key
+        var yearlevel_id_string = yearlevel_id.toString()
 
-        databaseRef.child(section_id.toString()).setValue(SectionClass(section_id,section_name,sy,teacher_id,"","","",yearlevel_id))
+        databaseRef.child(section_id.toString()).setValue(SectionClass(section_id,section_name,sy,teacher_id,"","","",yearlevel_id_string))
 
     }
 }
