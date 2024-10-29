@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.voicerecognitionappteacheradmin.CustomAdapters.ClassesCustomAdapter
 import com.example.voicerecognitionappteacheradmin.DataClass.Classes
+import com.example.voicerecognitionappteacheradmin.DataClass.SchoolYearClass
 import com.example.voicerecognitionappteacheradmin.DataClass.SectionClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -24,6 +25,7 @@ import com.google.firebase.database.ValueEventListener
 class ClassMenu : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private var current_sy_id: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +49,13 @@ class ClassMenu : AppCompatActivity() {
         val button_add_class: Button = findViewById<Button>(R.id.buttonAddClass)
 
 
+        current_sy_id = ""
+
         if(auth.currentUser?.uid != null){
-            populateClasses(listview, listClassItem, listSectionItem , auth.currentUser?.uid.toString())
+            var firebaseUID = auth.currentUser?.uid.toString()
+
+            getCurrentActiveSY(firebaseUID)
+            populateClasses(listview, listClassItem, listSectionItem , firebaseUID)
         }
 
 
@@ -65,6 +72,33 @@ class ClassMenu : AppCompatActivity() {
     }
 
 
+    fun getCurrentActiveSY(firebase_uid: String){
+        val dbref: DatabaseReference
+        dbref = FirebaseDatabase.getInstance().getReference("/schoolyear/")
+
+        dbref.addValueEventListener(object: ValueEventListener{
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                var record_items = snapshot.children.mapNotNull { child ->
+                    child.getValue(SchoolYearClass::class.java)
+                }
+
+                for(item_records in record_items){
+                    if(firebase_uid.equals(item_records.created_by) && item_records.status.equals("1")){
+                        current_sy_id = item_records.schoolyear_id
+                    }
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+    }
+
     fun populateClasses(listview: ListView, listClassItem: MutableList<Classes>, listSectionItem: MutableList<SectionClass>,  firebase_uid: String){
 
         val databaseClassRef: DatabaseReference
@@ -77,7 +111,11 @@ class ClassMenu : AppCompatActivity() {
                 }
 
                 for(item_records in objects){
-                    listSectionItem.add(item_records)
+
+
+                        listSectionItem.add(item_records)
+
+
                 }
 
             }
@@ -98,7 +136,7 @@ class ClassMenu : AppCompatActivity() {
 
                 for(object_item in objects){
 
-                    if(object_item.teacher_id.equals(firebase_uid)){
+                    if(object_item.teacher_id.equals(firebase_uid) && object_item.sy.equals(current_sy_id)){
                         listClassItem.add(object_item)
                     }
 
