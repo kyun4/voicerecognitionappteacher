@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.voicerecognitionappteacheradmin.DataClass.Classes
+import com.example.voicerecognitionappteacheradmin.DataClass.SchoolYearClass
 import com.example.voicerecognitionappteacheradmin.DataClass.SectionClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -27,6 +28,7 @@ class AddClassForm : AppCompatActivity() {
 
     private lateinit var auth:FirebaseAuth
     private lateinit var firebase_uid: String
+    private lateinit var current_sy_id: String
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
@@ -40,6 +42,7 @@ class AddClassForm : AppCompatActivity() {
         }
 
         auth = FirebaseAuth.getInstance()
+        current_sy_id = ""
 
         val yearlevel_list = listOf(" [Select Year Level] ","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6")
         val section_list = mutableListOf<SectionClass>()
@@ -56,6 +59,7 @@ class AddClassForm : AppCompatActivity() {
 
         if(auth.currentUser?.uid != null){
             firebase_uid = auth.currentUser?.uid.toString()
+            getCurrentActiveSY(auth.currentUser?.uid.toString())
         }
 
         imageback.setOnClickListener {
@@ -109,7 +113,7 @@ class AddClassForm : AppCompatActivity() {
 
             if(error_messages.trim().equals("")){
 
-                addClass(className, section_list.get(spinner_sections.selectedItemPosition).section_id, "sy",firebase_uid)
+                addClass(className, section_list.get(spinner_sections.selectedItemPosition).section_id, current_sy_id,firebase_uid)
                 et_class_name.text.clear()
                 val intent = Intent(baseContext, MainMenu::class.java)
                 startActivity(intent)
@@ -119,6 +123,33 @@ class AddClassForm : AppCompatActivity() {
             }
 
         }
+    }
+
+    fun getCurrentActiveSY(firebase_uid: String){
+        val dbref: DatabaseReference
+        dbref = FirebaseDatabase.getInstance().getReference("/schoolyear/")
+
+        dbref.addValueEventListener(object: ValueEventListener{
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                var record_items = snapshot.children.mapNotNull { child ->
+                    child.getValue(SchoolYearClass::class.java)
+                }
+
+                for(item_records in record_items){
+                    if(firebase_uid.equals(item_records.created_by) && item_records.status.equals("1")){
+                        current_sy_id = item_records.schoolyear_id
+                    }
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
     }
 
     fun getSectionList(spinner_sections: Spinner, section_list: MutableList<SectionClass>, yearlevel_id: String, firebase_uid: String){
@@ -167,7 +198,7 @@ class AddClassForm : AppCompatActivity() {
         var class_id: String = ""
         class_id = database.push().key.toString()
 
-        database.child(class_id).setValue(Classes(class_id,class_name,section_id,teacher_id,sy)).addOnSuccessListener {
+        database.child(class_id).setValue(Classes(class_id,class_name,section_id,teacher_id,"","","",sy)).addOnSuccessListener {
             Toast.makeText(baseContext,"One Class Added "+class_name, Toast.LENGTH_LONG).show();
         }.addOnFailureListener {
             Toast.makeText(baseContext,"Failed Adding Class ${it.toString()}", Toast.LENGTH_LONG).show();

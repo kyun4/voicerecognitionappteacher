@@ -12,14 +12,19 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.voicerecognitionappteacheradmin.DataClass.SchoolYearClass
 import com.example.voicerecognitionappteacheradmin.DataClass.SectionClass
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class AddSection : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var current_sy_id: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -31,6 +36,11 @@ class AddSection : AppCompatActivity() {
         }
 
         auth = FirebaseAuth.getInstance()
+        current_sy_id = ""
+
+        if(auth.currentUser?.uid != null){
+            getCurrentActiveSY(auth.currentUser?.uid.toString())
+        }
 
         val imageBack = findViewById<ImageView>(R.id.imageView_back_section_list)
         val buttonAddSection = findViewById<Button>(R.id.buttonCreateSection)
@@ -68,7 +78,7 @@ class AddSection : AppCompatActivity() {
             if(error_message.trim().equals("")){
 
                 if(auth.currentUser?.uid != null){
-                    addSection(section_name,Integer.parseInt(yearlevel_id)-1, auth.currentUser?.uid.toString(),"")
+                    addSection(section_name,Integer.parseInt(yearlevel_id)-1, auth.currentUser?.uid.toString(),current_sy_id)
                     et_section_name.text.clear()
                     spinner_yearlevel.setSelection(0)
 
@@ -88,6 +98,33 @@ class AddSection : AppCompatActivity() {
             }
 
         }
+    }
+
+    fun getCurrentActiveSY(firebase_uid: String){
+        val dbref: DatabaseReference
+        dbref = FirebaseDatabase.getInstance().getReference("/schoolyear/")
+
+        dbref.addValueEventListener(object: ValueEventListener{
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                var record_items = snapshot.children.mapNotNull { child ->
+                    child.getValue(SchoolYearClass::class.java)
+                }
+
+                for(item_records in record_items){
+                    if(firebase_uid.equals(item_records.created_by) && item_records.status.equals("1")){
+                        current_sy_id = item_records.schoolyear_id
+                    }
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
     }
 
     fun addSection(section_name: String, yearlevel_id: Int, teacher_id: String, sy: String){

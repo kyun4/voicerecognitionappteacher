@@ -6,7 +6,9 @@ public class Classes {
     String section_id;
     String teacher_id;
 
-    String sy;
+    String date_time_created;
+    String date_time_updated;
+    String last_updated_by;
 
     public Classes() {
     }
@@ -43,6 +45,30 @@ public class Classes {
         this.teacher_id = teacher_id;
     }
 
+    public String getDate_time_created() {
+        return date_time_created;
+    }
+
+    public void setDate_time_created(String date_time_created) {
+        this.date_time_created = date_time_created;
+    }
+
+    public String getDate_time_updated() {
+        return date_time_updated;
+    }
+
+    public void setDate_time_updated(String date_time_updated) {
+        this.date_time_updated = date_time_updated;
+    }
+
+    public String getLast_updated_by() {
+        return last_updated_by;
+    }
+
+    public void setLast_updated_by(String last_updated_by) {
+        this.last_updated_by = last_updated_by;
+    }
+
     public String getSy() {
         return sy;
     }
@@ -51,11 +77,20 @@ public class Classes {
         this.sy = sy;
     }
 
-    public Classes(String class_id, String class_name, String section_id, String teacher_id, String sy) {
+    public Classes(String class_id, String class_name, String section_id, String teacher_id, String date_time_created, String date_time_updated, String last_updated_by, String sy) {
         this.class_id = class_id;
         this.class_name = class_name;
         this.section_id = section_id;
         this.teacher_id = teacher_id;
+        this.date_time_created = date_time_created;
+        this.date_time_updated = date_time_updated;
+        this.last_updated_by = last_updated_by;
         this.sy = sy;
     }
+
+    String sy;
+
+
+
+
 }

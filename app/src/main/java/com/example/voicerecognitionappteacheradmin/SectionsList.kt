@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.voicerecognitionappteacheradmin.CustomAdapters.SectionCustomAdapter
+import com.example.voicerecognitionappteacheradmin.DataClass.SchoolYearClass
 import com.example.voicerecognitionappteacheradmin.DataClass.SectionClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -22,6 +23,7 @@ import com.google.firebase.database.ValueEventListener
 class SectionsList : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var current_sy_id: String
 
     private var listview: ListView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,9 +46,12 @@ class SectionsList : AppCompatActivity() {
 
         var listItemSection = mutableListOf<SectionClass>()
 
+        current_sy_id = ""
 
         if(auth.currentUser?.uid != null){
-            populateSections(listview, listItemSection, auth.currentUser?.uid.toString())
+            var firebaseUID = auth.currentUser?.uid.toString()
+            getCurrentActiveSY(firebaseUID)
+            populateSections(listview, listItemSection, firebaseUID)
         }
 
         imageBack.setOnClickListener {
@@ -62,6 +67,34 @@ class SectionsList : AppCompatActivity() {
 
     }
 
+    fun getCurrentActiveSY(firebase_uid: String){
+        val dbref: DatabaseReference
+        dbref = FirebaseDatabase.getInstance().getReference("/schoolyear/")
+
+        dbref.addValueEventListener(object: ValueEventListener{
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                var record_items = snapshot.children.mapNotNull { child ->
+                    child.getValue(SchoolYearClass::class.java)
+                }
+
+                for(item_records in record_items){
+                    if(firebase_uid.equals(item_records.created_by) && item_records.status.equals("1")){
+                        current_sy_id = item_records.schoolyear_id
+                    }
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+    }
+
+
     fun populateSections(listview: ListView, listItemSection: MutableList<SectionClass>, firebase_uid: String){
 
         val database_ref: DatabaseReference
@@ -76,7 +109,7 @@ class SectionsList : AppCompatActivity() {
                 }
 
                 for(object_item in objects){
-                    if(object_item.teacher_id.equals(firebase_uid)){
+                    if(object_item.teacher_id.equals(firebase_uid) && object_item.sy.equals(current_sy_id)){
                         listItemSection.add(object_item)
                     }
                 }
