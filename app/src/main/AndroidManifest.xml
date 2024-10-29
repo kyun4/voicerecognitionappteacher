@@ -13,6 +13,9 @@
         android:theme="@style/Theme.VoiceRecognitionAppTeacherAdmin"
         tools:targetApi="31">
         <activity
+            android:name=".AddSYArchive"
+            android:exported="false" />
+        <activity
             android:name=".AddSection"
             android:exported="false" />
         <activity

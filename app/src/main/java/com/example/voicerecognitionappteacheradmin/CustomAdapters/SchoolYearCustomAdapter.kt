@@ -21,6 +21,16 @@ class SchoolYearCustomAdapter(context: Context, private val resource:Int, privat
         val textViewTitle = view.findViewById<TextView>(R.id.textView_title)
         val textViewSubtitle = view.findViewById<TextView>(R.id.textView_subtitle)
 
+        imageViewIcon.setImageResource(R.drawable.schoolyearicon1)
+        textViewTitle.setText(item.schoolyear_name)
+
+        if(item.status.trim().equals("1")){
+            textViewSubtitle.setText("Active")
+        }else{
+            textViewSubtitle.setText("Inactive")
+        }
+
+
         return view
     }
 }

@@ -8,20 +8,8 @@ public class SchoolYearClass {
     String date_time_updated;
     String last_updated_by;
     String status;
-    String teacher_id;
 
     public SchoolYearClass() {
-    }
-
-    public SchoolYearClass(String schoolyear_id, String schoolyear_name, String created_by, String date_time_created, String date_time_updated, String last_updated_by, String status, String teacher_id) {
-        this.schoolyear_id = schoolyear_id;
-        this.schoolyear_name = schoolyear_name;
-        this.created_by = created_by;
-        this.date_time_created = date_time_created;
-        this.date_time_updated = date_time_updated;
-        this.last_updated_by = last_updated_by;
-        this.status = status;
-        this.teacher_id = teacher_id;
     }
 
     public String getSchoolyear_id() {
@@ -80,11 +68,13 @@ public class SchoolYearClass {
         this.status = status;
     }
 
-    public String getTeacher_id() {
-        return teacher_id;
-    }
-
-    public void setTeacher_id(String teacher_id) {
-        this.teacher_id = teacher_id;
+    public SchoolYearClass(String schoolyear_id, String schoolyear_name, String created_by, String date_time_created, String date_time_updated, String last_updated_by, String status) {
+        this.schoolyear_id = schoolyear_id;
+        this.schoolyear_name = schoolyear_name;
+        this.created_by = created_by;
+        this.date_time_created = date_time_created;
+        this.date_time_updated = date_time_updated;
+        this.last_updated_by = last_updated_by;
+        this.status = status;
     }
 }

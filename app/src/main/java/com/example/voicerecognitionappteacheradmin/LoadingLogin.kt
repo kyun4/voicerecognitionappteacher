@@ -75,7 +75,7 @@ class LoadingLogin : AppCompatActivity() {
                 startActivity(ii)
             }
 
-        }, 1000)
+        },500)
     }
 
 

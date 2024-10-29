@@ -7,4 +7,74 @@
     android:layout_height="match_parent"
     tools:context=".SYArchives">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView_back_home"
+                android:layout_width="65dp"
+                android:layout_height="41dp"
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/arrowback3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_menu_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="40dp"
+                    android:text="SY Archives"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView_menu_subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginRight="40dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="List of SY Archives"
+                    android:textSize="14dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listview_sy_archives"
+            android:layout_width="match_parent"
+            android:layout_height="555dp" />
+
+        <Button
+            android:id="@+id/buttonAddSY"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/base_color"
+            android:padding="15dp"
+            android:text="Add New School Year"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent=".4" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
